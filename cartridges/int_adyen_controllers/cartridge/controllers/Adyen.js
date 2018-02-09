@@ -380,8 +380,7 @@ function authorizeWithForm()
 		PaymentInstrument: paymentInstrument,
 		CurrentSession: session,
 		CurrentRequest: request,
-		MD: adyenResponse.MD,
-		PaResponse: adyenResponse.PaRes
+		AdyenResponse: adyenResponse
 	});
 	
     if (result.error || result.Decision != 'ACCEPT') {
@@ -411,11 +410,22 @@ function authorizeWithForm()
  * @returns template
  */
 function closeIFrame() {
-	var adyenResponse = {
-			MD : request.httpParameterMap.get("MD").stringValue,
-			PaRes : request.httpParameterMap.get("PaRes").stringValue
-	}
+	//TODOBAS
+	var responseParameters = request.httpParameterMap.getParameterNames();
+	var adyenResponse = {};
+	responseParameters.add()
+	for (var i = 0; i < responseParameters.length; i++) {
+			var key = responseParameters[i];
+			adyenResponse[key] = request.httpParameterMap.get(key).stringValue;
+		}
+	
 	session.custom.adyenResponse = adyenResponse;
+	
+//	var adyenResponse2 = {
+//			MD : request.httpParameterMap.get("MD").stringValue,
+//			PaRes : request.httpParameterMap.get("PaRes").stringValue
+//	}
+//	session.custom.adyenResponse2 = adyenResponse2;
     app.getView({
         ContinueURL: URLUtils.https('Adyen-AuthorizeWithForm')
     }).render('adyenpaymentredirect');
@@ -439,6 +449,7 @@ function clearForms() {
 function clearCustomSessionFields() {
 	// Clears all fields used in the 3d secure payment.
     session.custom.adyenResponse = null;
+    session.custom.adyenResponse2 = null;
     session.custom.paymentInstrument = null;
     session.custom.order = null;
     session.custom.adyenBrandCode = null;
