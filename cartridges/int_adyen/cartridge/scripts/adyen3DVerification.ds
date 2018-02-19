@@ -68,25 +68,27 @@ function verify( args : PipelineDictionary ) : Number {
 		if (shopperIp == null) { shopperIp = ''; }
 		 
 		// set-up the 3D Secure post call
-		// TODOBAS set PayU values in POST call --> args  
 	   	var jsonRequest : JSON = {
 		  "browserInfo": {
 		    "acceptHeader": acceptHeader,
 		    "userAgent": userAgent
 		  },
-		  "md": args.adyenResponse.MD,
+		  "md": args.AdyenResponse.MD,
 		  "merchantAccount": MERCHANTACCOUNT,
-		  "paResponse": args.adyenResponse.PaResponse,
+		  "paResponse": args.AdyenResponse.PaResponse,
 		  "shopperEmail": order.customerEmail,
-		  "shopperIP": shopperIp
+		  "shopperIP": shopperIp,
+		  "additionalData":{}
 	   	};
 	   	
-	   	var implementationType = args.CurrentSession.mpiImplementationType;
-	   	for (var i = 0; i < adyenResponse.length; i++) {
-			var key = adyenResponse[i];
-			adyenResponse[key] = adyenResponse[i].value;
-		}
-  		
+	   	var prefix = args.MpiImplementationType;
+	   	var additionalData = {};
+	   	
+	 	Object.keys(args.AdyenResponse).forEach(function(key){
+    			var newKey = prefix + '.' + key;
+    			jsonRequest.additionalData[newKey] = args.AdyenResponse[key];
+        	});
+        	
 		var callResult = null;
 		var service = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT_3DSECURE);
 		if (service == null) {

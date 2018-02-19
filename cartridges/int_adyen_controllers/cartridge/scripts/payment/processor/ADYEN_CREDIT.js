@@ -120,6 +120,7 @@ function Authorize(args) {
         Transaction.commit();
         session.custom.order = order;
         session.custom.paymentInstrument = paymentInstrument;
+        session.custom.mpiImplementationType = result.MpiImplementationType;
         return {
             authorized: true,
             authorized3d: true,
@@ -129,7 +130,8 @@ function Authorize(args) {
                 issuerUrl: result.IssuerUrl,
                 paRequest: result.PaRequest,
                 md: result.MD,
-                mpiData : result.MpiData
+                mpiData : result.MpiData,
+                mpiImplementationType: result.MpiImplementationType
             })};
     }
 

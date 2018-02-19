@@ -370,7 +370,8 @@ function authorizeWithForm()
 	var	adyen3DVerification = require('int_adyen/cartridge/scripts/adyen3DVerification'), result,
 	order = session.custom.order,
 	paymentInstrument = session.custom.paymentInstrument,
-	adyenResponse  = session.custom.adyenResponse;
+	adyenResponse  = session.custom.adyenResponse,
+	mpiImplementationType = session.custom.mpiImplementationType;
 	clearCustomSessionFields();
 	
 	Transaction.begin();
@@ -380,7 +381,8 @@ function authorizeWithForm()
 		PaymentInstrument: paymentInstrument,
 		CurrentSession: session,
 		CurrentRequest: request,
-		AdyenResponse: adyenResponse
+		AdyenResponse: adyenResponse,
+		MpiImplementationType: mpiImplementationType
 	});
 	
     if (result.error || result.Decision != 'ACCEPT') {
@@ -410,22 +412,14 @@ function authorizeWithForm()
  * @returns template
  */
 function closeIFrame() {
-	//TODOBAS
 	var responseParameters = request.httpParameterMap.getParameterNames();
 	var adyenResponse = {};
-	responseParameters.add()
 	for (var i = 0; i < responseParameters.length; i++) {
 			var key = responseParameters[i];
 			adyenResponse[key] = request.httpParameterMap.get(key).stringValue;
 		}
 	
 	session.custom.adyenResponse = adyenResponse;
-	
-//	var adyenResponse2 = {
-//			MD : request.httpParameterMap.get("MD").stringValue,
-//			PaRes : request.httpParameterMap.get("PaRes").stringValue
-//	}
-//	session.custom.adyenResponse2 = adyenResponse2;
     app.getView({
         ContinueURL: URLUtils.https('Adyen-AuthorizeWithForm')
     }).render('adyenpaymentredirect');
@@ -449,7 +443,7 @@ function clearForms() {
 function clearCustomSessionFields() {
 	// Clears all fields used in the 3d secure payment.
     session.custom.adyenResponse = null;
-    session.custom.adyenResponse2 = null;
+    session.custom.mpiImplementationType = null;
     session.custom.paymentInstrument = null;
     session.custom.order = null;
     session.custom.adyenBrandCode = null;

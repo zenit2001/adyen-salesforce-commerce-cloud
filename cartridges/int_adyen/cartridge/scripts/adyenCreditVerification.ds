@@ -156,6 +156,7 @@ function verify(args) {
         args.AdyenErrorMessage = '';
         args.AdyenCardType = cardType;
         args.MpiData = [];
+        args.MpiImplementationType = '';
 
         // make API call
         var requestObject = AdyenHelper.extend(jsonObject, shopperObject);
@@ -215,20 +216,22 @@ function verify(args) {
       
        if(responseObj.additionalData.mpiImplementationType)
         {
-        	args.CurrentSession.mpiImplementationType = responseObj.additionalData.mpiImplementationType;
+        	args.MpiImplementationType = responseObj.additionalData.mpiImplementationType;
         	var prefix = responseObj.additionalData.mpiImplementationType;
         	Object.keys(responseObj.additionalData).forEach(function(key){
         		if(key.indexOf(prefix) != -1)
         		{
-        			var newKey = key.slice(prefix.length + 1, key.length);        			
+        			var newKey = key.slice(prefix.length + 1, key.length);  
         			args.MpiData.push({
         				key: newKey,
         				value: responseObj.additionalData[key]
         			});
+        			
+        			if(newKey == "adyen.issuerUrl"){
+        				args.IssuerUrl = responseObj.additionalData[key];
+        			}
         		}
         	});
-        	//TODOBAS set issuerURL to PayU adyen.issuerURL
-        	//args.IssuerUrl = args.MpiData['adyen.issuerURL'];
         }
         
         args.AuthorizationCode = ('authCode' in responseObj && !empty(responseObj.authCode) ? responseObj.authCode : '');
