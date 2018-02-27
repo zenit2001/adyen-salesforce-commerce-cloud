@@ -112,7 +112,7 @@ function verify(args) {
         else{
             houseNumberShip = "N/A";
         }
-        jsonObject.deliveryAddress = {
+       	jsonObject.deliveryAddress = {
             "city": shippingAddr.city,
                 "country": shippingAddr.countryCode.value,
                 "houseNumberOrName": houseNumberShip,
@@ -129,7 +129,7 @@ function verify(args) {
         else{
             houseNumberBill = "N/A";
         }
-        jsonObject.billingAddress = {
+       	jsonObject.billingAddress = {
             "city": billingAddr.city,
             "country": billingAddr.countryCode.value,
             "houseNumberOrName": houseNumberBill,

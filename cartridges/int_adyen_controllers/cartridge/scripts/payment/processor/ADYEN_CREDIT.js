@@ -121,6 +121,7 @@ function Authorize(args) {
         session.custom.order = order;
         session.custom.paymentInstrument = paymentInstrument;
         session.custom.mpiImplementationType = result.MpiImplementationType;
+        session.custom.md = result.MD;
         return {
             authorized: true,
             authorized3d: true,

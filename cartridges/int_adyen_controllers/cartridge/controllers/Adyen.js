@@ -371,7 +371,8 @@ function authorizeWithForm()
 	order = session.custom.order,
 	paymentInstrument = session.custom.paymentInstrument,
 	adyenResponse  = session.custom.adyenResponse,
-	mpiImplementationType = session.custom.mpiImplementationType;
+	mpiImplementationType = session.custom.mpiImplementationType,
+	md = session.custom.md;
 	clearCustomSessionFields();
 	
 	Transaction.begin();
@@ -382,7 +383,8 @@ function authorizeWithForm()
 		CurrentSession: session,
 		CurrentRequest: request,
 		AdyenResponse: adyenResponse,
-		MpiImplementationType: mpiImplementationType
+		MpiImplementationType: mpiImplementationType,
+		MD: md
 	});
 	
     if (result.error || result.Decision != 'ACCEPT') {
@@ -444,6 +446,7 @@ function clearCustomSessionFields() {
 	// Clears all fields used in the 3d secure payment.
     session.custom.adyenResponse = null;
     session.custom.mpiImplementationType = null;
+    session.custom.md = null;
     session.custom.paymentInstrument = null;
     session.custom.order = null;
     session.custom.adyenBrandCode = null;

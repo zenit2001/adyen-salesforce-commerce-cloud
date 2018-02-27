@@ -73,22 +73,24 @@ function verify( args : PipelineDictionary ) : Number {
 		    "acceptHeader": acceptHeader,
 		    "userAgent": userAgent
 		  },
-		  "md": args.AdyenResponse.MD,
+		  "md": args.MD,
 		  "merchantAccount": MERCHANTACCOUNT,
-		  "paResponse": args.AdyenResponse.PaResponse,
+		  "paResponse": args.AdyenResponse.PaRes,
 		  "shopperEmail": order.customerEmail,
 		  "shopperIP": shopperIp,
 		  "additionalData":{}
 	   	};
 	   	
-	   	var prefix = args.MpiImplementationType;
-	   	var additionalData = {};
-	   	
-	 	Object.keys(args.AdyenResponse).forEach(function(key){
-    			var newKey = prefix + '.' + key;
-    			jsonRequest.additionalData[newKey] = args.AdyenResponse[key];
-        	});
-        	
+	   	if(args.MpiImplementationType){	
+		   	var prefix = args.MpiImplementationType;
+		   	var additionalData = {};
+		   	
+		 	Object.keys(args.AdyenResponse).forEach(function(key){
+	    			var newKey = prefix + '.' + key;
+	    			jsonRequest.additionalData[newKey] = args.AdyenResponse[key];
+	        	});
+	        jsonRequest.additionalData['mpiImplementationType'] = args.MpiImplementationType;
+	   	}
 		var callResult = null;
 		var service = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT_3DSECURE);
 		if (service == null) {
