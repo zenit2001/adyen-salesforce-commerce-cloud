@@ -86,9 +86,8 @@ function verify(args) {
 
         if ('additionalData' in cardObject) {
             jsonObject['additionalData'] = cardObject.additionalData;
-            // todobas
-            //jsonObject.additionalData.returnUrl = URLUtils.https('Adyen-CloseIFrame', 'utm_nooverride', '1');
-            jsonObject.additionalData.returnUrl = 'https://adyen02-tech-prtnr-eu04-dw.demandware.net/on/demandware.store/Sites-Adyen-Site/default/Adyen-CloseIFrame';
+            //returnUrl for custom 3D
+            jsonObject['additionalData'].returnUrl = URLUtils.https('Adyen-CloseIFrame').toString();
         }
 
         var shopperObject = AdyenHelper.createShopperObject({
@@ -98,9 +97,7 @@ function verify(args) {
 
         var myAmount = AdyenHelper.getCurrencyValueForApi(args.Amount); //args.Amount * 100;
         jsonObject['amount'] = {
-            //'currency': args.Amount.currencyCode,
-             // todobas
-            'currency': 'INR',
+            'currency': args.Amount.currencyCode,
             'value': myAmount
         };
 
