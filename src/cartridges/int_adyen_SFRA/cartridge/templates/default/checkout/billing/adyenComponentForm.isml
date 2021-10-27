@@ -96,7 +96,6 @@
      </script>
      </form>
      <form method="post"
-
            id="showConfirmationForm"
            action="${ShowConfirmationPaymentFromComponent}">
            <input type="hidden" id="additionalDetailsHidden" name="additionalDetailsHidden" value="null"/>

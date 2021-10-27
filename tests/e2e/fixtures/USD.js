@@ -6,6 +6,8 @@ import {
   do3Ds2Verification,
   doCardPaymentOneclick,
 } from "../paymentFlows/cards";
+import { doPaypalPayment } from "../paymentFlows/pending";
+
 const shopperData = require("../data/shopperData.json");
 const cardData = require("../data/cardData.json") ;
 
@@ -120,12 +122,10 @@ test('Card logged in user co-branded BCMC oneClick test success', async () => {
   await checkoutPage.expectSuccess();
 })
 
-test('PayPal Success', async t => {
-
-});
-
-test('PayPal Fail', async t => {
-
+test.only('PayPal Success', async t => {
+  await goToBillingWithFullCartGuestUser();
+  await doPaypalPayment(cardData.threeDs2);
+  await checkoutPage.expectSuccess();
 });
 
 test('Affirm Success', async t => {

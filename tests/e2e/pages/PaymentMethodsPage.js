@@ -71,4 +71,18 @@ export default class PaymentMethodsPage {
             .click(installmentsDiv.find('button'))
             .click(`li[data-value="${nrInstallments}"]`);
     }
+
+    initiatePaypalPayment = async (cardInput) => {
+        await t
+            .click(Selector('#rb_paypal'))
+            .typeText('#email', 'wally@bizzle.com')
+            .switchToIframe('iframe[title="PayPal"]')
+            .click('div[role="button"]')
+            .click('#createAccount')
+            .typeText('#cc', cardInput.cardNumber)
+            .typeText('#expiry_value', cardInput.expirationDate)
+            .typeText('#cvv', cardInput.cvc)
+            .typeText('#telephone', '3333333333')
+            .click('#pomaSubmit');
+    }
 }
