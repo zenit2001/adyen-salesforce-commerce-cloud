@@ -122,7 +122,7 @@ test('Card logged in user co-branded BCMC oneClick test success', async () => {
   await checkoutPage.expectSuccess();
 })
 
-test.only('PayPal Success', async t => {
+test('PayPal Success', async t => {
   await goToBillingWithFullCartGuestUser();
   await doPaypalPayment(cardData.threeDs2);
   await checkoutPage.expectSuccess();
