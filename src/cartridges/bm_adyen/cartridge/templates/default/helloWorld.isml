@@ -1,0 +1,11 @@
+<iscontent type="text/html" charset="UTF-8" compact="true">
+<link rel="stylesheet" type="text/css" href="${URLUtils.staticURL('adyen.css')}">
+<isinclude url="${URLUtils.url('SiteNavigationBar-IncludeFrameTop','SelectedMenuItem',pdict.SelectedMenuItem,'CurrentMenuItemId',pdict.CurrentMenuItemId)}">
+
+<body>
+    <div class="menu">
+        <button class="adyen-button">Click here to delete this SFCC instance</button>
+    </div>
+</body>
+
+<isinclude url="${URLUtils.url('SiteNavigationBar-IncludeFrameBottom')}">
