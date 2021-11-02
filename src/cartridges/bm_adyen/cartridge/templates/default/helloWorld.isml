@@ -3,6 +3,7 @@
 <isinclude url="${URLUtils.url('SiteNavigationBar-IncludeFrameTop','SelectedMenuItem',pdict.SelectedMenuItem,'CurrentMenuItemId',pdict.CurrentMenuItemId)}">
 
 <body>
+    <h1>${pdict.text}</h1>
     <div class="menu">
         <button class="adyen-button">Click here to delete this SFCC instance</button>
     </div>
