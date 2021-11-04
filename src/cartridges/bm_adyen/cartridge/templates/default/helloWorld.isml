@@ -1,11 +1,17 @@
 <iscontent type="text/html" charset="UTF-8" compact="true">
 <link rel="stylesheet" type="text/css" href="${URLUtils.staticURL('adyen.css')}">
 <isinclude url="${URLUtils.url('SiteNavigationBar-IncludeFrameTop','SelectedMenuItem',pdict.SelectedMenuItem,'CurrentMenuItemId',pdict.CurrentMenuItemId)}">
-
-<body>
+<head>
     <h1>${pdict.text}</h1>
+    <h2> MerchantAccount is ${pdict.merchantAccount} and environment is ${pdict.environment}</h2>
+</head>
+<body>
     <div class="menu">
-        <button class="adyen-button">Click here to delete this SFCC instance</button>
+        <button
+            class="adyen-button"
+            click="${URLUtils.url('AdyenSettings-getSetting')}">
+            Click here to delete this SFCC instance
+        </button>
     </div>
 </body>
 
