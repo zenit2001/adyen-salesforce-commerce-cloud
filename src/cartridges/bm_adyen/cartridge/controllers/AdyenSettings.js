@@ -13,7 +13,13 @@ server.get('Start', csrfProtection.generateToken, function (req, res, next) {
   return next();
 });
 
-server.get('getSetting', csrfProtection.generateToken, function (req, res, next) {
+server.post('Save',
+    csrfProtection.generateToken,
+    server.middleware.https,
+    function (req, res, next) {
+
+  const merchantAccountValue = req.form.merchantAccount;
+  AdyenHelper.setAdyenMerchantAccount(merchantAccountValue);
   res.render('helloWorld', {
     text: "I've been passed down from the controller via the button!",
     environment: AdyenHelper.getAdyenEnvironment(),

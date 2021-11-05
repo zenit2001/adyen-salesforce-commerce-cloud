@@ -111,6 +111,14 @@ var adyenHelperObj = {
     return customPreference;
   },
 
+  // set the value of a custom preference
+  setCustomPreference(field, value) {
+    let customPreference = null;
+    if (adyenCurrentSite && adyenCurrentSite.getCustomPreferenceValue(field)) {
+      customPreference = adyenCurrentSite.setCustomPreferenceValue(field, value);
+    }
+  },
+
   // Get the current adyen environment mode (live or test)
   getAdyenEnvironment() {
     return adyenHelperObj.getCustomPreference('Adyen_Mode').value;
@@ -118,6 +126,10 @@ var adyenHelperObj = {
 
   getAdyenMerchantAccount() {
     return adyenHelperObj.getCustomPreference('Adyen_merchantCode');
+  },
+
+  setAdyenMerchantAccount(value) {
+    adyenHelperObj.setCustomPreference('Adyen_merchantCode', value);
   },
 
   getAdyenSFRA6Compatibility() {

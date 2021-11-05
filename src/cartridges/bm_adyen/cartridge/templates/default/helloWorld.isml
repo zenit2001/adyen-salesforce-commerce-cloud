@@ -8,10 +8,14 @@
 <body>
     <div class="menu">
         <button
-            class="adyen-button"
-            click="${URLUtils.url('AdyenSettings-getSetting')}">
+            class="adyen-button">
             Click here to delete this SFCC instance
         </button>
+        <form action="${URLUtils.url('AdyenSettings-Save')}" method="post">
+            <label for="merchant-account-input">Merchant Account:</label>
+            <input id="merchant-account-input" name="merchantAccount" value="${pdict.merchantAccount}">
+            <input type="submit" value="Save">
+        </form>
     </div>
 </body>
 
