@@ -149,59 +149,6 @@ function initializeBillingEvents() {
       wechatpayQR: getQRCodeConfig(),
       pix: getQRCodeConfig(),
       amazonpay: getAmazonpayConfig(),
-      afterpay_default: {
-        visibility: {
-          personalDetails: 'editable',
-          billingAddress: 'hidden',
-          deliveryAddress: 'hidden',
-        },
-        data: {
-          personalDetails: {
-            firstName: document.querySelector(
-              '#dwfrm_billing_billingAddress_addressFields_firstName',
-            ).value,
-            lastName: document.querySelector(
-              '#dwfrm_billing_billingAddress_addressFields_lastName',
-            ).value,
-            telephoneNumber: document.querySelector(
-              '#dwfrm_billing_billingAddress_addressFields_phone',
-            ).value,
-            shopperEmail: document.querySelector(
-              '#dwfrm_billing_billingAddress_email_emailAddress',
-            ).value,
-          },
-        },
-      },
-      facilypay_3x: {
-        visibility: {
-          personalDetails: 'editable',
-          billingAddress: 'hidden',
-          deliveryAddress: 'hidden',
-        },
-        data: {
-          personalDetails: {
-            firstName: document.querySelector(
-                '#dwfrm_billing_billingAddress_addressFields_firstName',
-            ).value,
-            lastName: document.querySelector(
-                '#dwfrm_billing_billingAddress_addressFields_lastName',
-            ).value,
-            telephoneNumber: document.querySelector(
-                '#dwfrm_billing_billingAddress_addressFields_phone',
-            ).value,
-            shopperEmail: document.querySelector(
-                '#dwfrm_billing_billingAddress_email_emailAddress',
-            ).value,
-          },
-        },
-      },
-      ratepay: {
-        visibility: {
-          personalDetails: 'editable',
-          billingAddress: 'hidden',
-          deliveryAddress: 'hidden',
-        }
-      }
     };
     if (window.installments) {
       try {
@@ -570,18 +517,12 @@ function renderCheckoutComponent(
   );
 }
 
-function getQuerySelectorValue(querySelector) {
-  if(querySelector && querySelector.value) {
-    return querySelector.value;
-  }
-  return null;
-}
-
 function getPersonalDetails() {
+  const shippingAddress = window.getPaymentMethodsResponse.shippingAddress;
   return {
-    firstName: getQuerySelectorValue(document.querySelector('#shippingFirstNamedefault')),
-    lastName: getQuerySelectorValue(document.querySelector('#shippingLastNamedefault')),
-    telephoneNumber: getQuerySelectorValue(document.querySelector('#shippingPhoneNumberdefault')),
+    firstName: shippingAddress.firstName,
+    lastName: shippingAddress.lastName,
+    telephoneNumber: shippingAddress.phone,
   };
 }
 
