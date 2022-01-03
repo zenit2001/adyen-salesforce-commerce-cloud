@@ -36,6 +36,7 @@ var adyenHelperObj = {
   SERVICE: {
     PAYMENT: 'AdyenPayment',
     PAYMENTDETAILS: 'AdyenPaymentDetails',
+    SESSIONS: 'AdyenSessions',
     RECURRING: 'AdyenRecurring',
     RECURRING_DISABLE: 'AdyenRecurringDisable',
     POSPAYMENT: 'AdyenPosPayment',

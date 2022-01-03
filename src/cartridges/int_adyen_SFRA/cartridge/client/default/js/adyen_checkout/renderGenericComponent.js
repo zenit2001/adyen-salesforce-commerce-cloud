@@ -37,6 +37,19 @@ function resolveUnmount(key, val) {
 }
 
 /**
+ * Makes an ajax call to the controller function CreateSession
+ */
+ function createSession(session) {
+   $.ajax({
+     url: window.getSessionsUrl,
+     type: 'get',
+     success(data) {
+       session(data);
+     },
+   });
+ }
+
+/**
  * To avoid re-rendering components twice, unmounts existing components from payment methods list
  */
 function unmountComponents() {
@@ -119,7 +132,7 @@ function setAmazonPayConfig(adyenPaymentMethods) {
 }
 
 /**
- * Calls getPaymenMethods and then renders the retrieved payment methods (including card component)
+ * Calls getPaymentMethods and then renders the retrieved payment methods (including card component)
  */
 module.exports.renderGenericComponent = async function renderGenericComponent() {
   if (Object.keys(store.componentsObj).length !== 0) {
@@ -144,6 +157,15 @@ module.exports.renderGenericComponent = async function renderGenericComponent() 
     firstPaymentMethod.checked = true;
     helpers.displaySelectedMethod(firstPaymentMethod.value);
   });
+
+  createSession((session) => {
+    store.checkoutConfiguration.session = {
+      id: session.id,
+      sessionData: session.sessionData,
+    }
+    console.log(JSON.stringify(session));
+  });
+
   helpers.createShowConfirmationForm(
     window.ShowConfirmationPaymentFromComponent,
   );

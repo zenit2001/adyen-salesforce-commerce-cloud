@@ -20,6 +20,12 @@ server.post(
   adyen.paymentsDetails,
 );
 
+server.get(
+    'Sessions',
+    server.middleware.https,
+    adyen.callCreateSession,
+);
+
 /**
  * Redirect to Adyen after 3DS1 Authentication When adding a card to an account
  */

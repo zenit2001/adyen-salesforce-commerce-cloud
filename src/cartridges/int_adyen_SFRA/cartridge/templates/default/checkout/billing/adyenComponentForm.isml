@@ -50,6 +50,7 @@
          window.merchantAccount = '${pdict.adyen.merchantAccount}';
          var showStoreDetails = ${customer.authenticated && adyenRecurringPaymentsEnabled};
          window.getPaymentMethodsURL = "${URLUtils.https('Adyen-GetPaymentMethods')}";
+         window.getSessionsUrl = "${URLUtils.https('Adyen-Sessions')}";
      </script>
 
      <isset name="AdyenHelper" value="${require('*/cartridge/scripts/util/adyenHelper')}" scope="pdict"/>
