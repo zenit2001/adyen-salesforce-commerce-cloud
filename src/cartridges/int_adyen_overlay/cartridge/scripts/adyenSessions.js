@@ -23,6 +23,9 @@
 const Logger = require('dw/system/Logger');
 const AdyenHelper = require('*/cartridge/scripts/util/adyenHelper');
 const URLUtils = require('dw/web/URLUtils');
+const AdyenGetOpenInvoiceData = require('*/cartridge/scripts/adyenGetOpenInvoiceData');
+const RiskDataHelper = require('*/cartridge/scripts/util/riskDataHelper');
+const adyenLevelTwoThreeData = require('*/cartridge/scripts/adyenLevelTwoThreeData');
 
 function createSession(basket, customer, countryCode) {
   try {
@@ -37,13 +40,25 @@ function createSession(basket, customer, countryCode) {
     const currencyCode = basket.currencyCode;
 
     //TODO: Change AdyenHelper so that this object can have a different name. Not creating a payment request here
-    const paymentRequest = {
+    let paymentRequest = {
       merchantAccount: AdyenHelper.getAdyenMerchantAccount(),
       amount: {
         currency: currencyCode,
         value: paymentAmount.value,
       },
     };
+
+    // Add Risk data
+    if (AdyenHelper.getAdyenBasketFieldsEnabled()) {
+      paymentRequest.additionalData = RiskDataHelper.createBasketContentFields(
+          basket
+      );
+    }
+
+    // L2/3 Data
+    if (AdyenHelper.getAdyenLevel23DataEnabled()) {
+      paymentRequest.additionalData = { ...paymentRequest.additionalData, ...adyenLevelTwoThreeData.getLineItems({Basket: basket}) };
+    }
 
     // Create shopper data fields
     const sessionsRequest = AdyenHelper.createShopperObject({
@@ -59,6 +74,8 @@ function createSession(basket, customer, countryCode) {
       sessionsRequest.shopperLocale = request.getLocale();
     }
 
+    sessionsRequest.lineItems = AdyenGetOpenInvoiceData.getLineItems({Basket: basket});
+    // This is not yet used. A valid URl to ShowConfirmation requires an order number, which we do not yet have.
     sessionsRequest.returnUrl = URLUtils.url('Checkout-Begin', 'stage', 'placeOrder').toString();
 
     // check logged in shopper for oneClick
@@ -74,6 +91,7 @@ function createSession(basket, customer, countryCode) {
       sessionsRequest.shopperReference = customerID;
     }
 
+    sessionsRequest.reference = basket.getUUID();
     sessionsRequest.blockedPaymentMethods = AdyenHelper.BLOCKED_PAYMENT_METHODS;
 
     const xapikey = AdyenHelper.getAdyenApiKey();

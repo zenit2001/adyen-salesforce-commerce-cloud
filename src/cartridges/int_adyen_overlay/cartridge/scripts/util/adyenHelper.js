@@ -448,10 +448,10 @@ var adyenHelperObj = {
     }
 
     const shopperDetails = {
-      firstName: args.order.getBillingAddress().firstName,
+      firstName: args.order.getDefaultShipment().getShippingAddress().firstName,
       gender,
       infix: '',
-      lastName: args.order.getBillingAddress().lastName,
+      lastName: args.order.getDefaultShipment().getShippingAddress().lastName,
     };
     args.paymentRequest.shopperName = shopperDetails;
 

@@ -139,23 +139,23 @@ module.exports.renderGenericComponent = async function renderGenericComponent() 
     await unmountComponents();
   }
   getPaymentMethods((data) => {
-    store.checkoutConfiguration.paymentMethodsResponse =
-      data.AdyenPaymentMethods;
-    setCheckoutConfiguration(data);
-    setAmazonPayConfig(data.AdyenPaymentMethods);
-    store.checkout = new AdyenCheckout(store.checkoutConfiguration);
-
-    document.querySelector('#paymentMethodsList').innerHTML = '';
-
-    renderStoredPaymentMethods(data);
-    renderPaymentMethods(data);
-    renderPosTerminals(data);
-
-    const firstPaymentMethod = document.querySelector(
-      'input[type=radio][name=brandCode]',
-    );
-    firstPaymentMethod.checked = true;
-    helpers.displaySelectedMethod(firstPaymentMethod.value);
+    // store.checkoutConfiguration.paymentMethodsResponse =
+    //   data.AdyenPaymentMethods;
+    // setCheckoutConfiguration(data);
+    // setAmazonPayConfig(data.AdyenPaymentMethods);
+    // store.checkout = new AdyenCheckout(store.checkoutConfiguration);
+    //
+    // document.querySelector('#paymentMethodsList').innerHTML = '';
+    //
+    // renderStoredPaymentMethods(data);
+    // renderPaymentMethods(data);
+    // renderPosTerminals(data);
+    //
+    // const firstPaymentMethod = document.querySelector(
+    //   'input[type=radio][name=brandCode]',
+    // );
+    // firstPaymentMethod.checked = true;
+    // helpers.displaySelectedMethod(firstPaymentMethod.value);
   });
 
   createSession((session) => {
@@ -163,7 +163,21 @@ module.exports.renderGenericComponent = async function renderGenericComponent() 
       id: session.id,
       sessionData: session.sessionData,
     }
-    console.log(JSON.stringify(session));
+    setCheckoutConfiguration(session);
+    store.checkout = new AdyenCheckout(store.checkoutConfiguration);
+    setAmazonPayConfig(store.checkout.paymentMethodsResponse);
+
+    document.querySelector('#paymentMethodsList').innerHTML = '';
+
+    renderStoredPaymentMethods(store.checkout.paymentMethodsResponse);
+    renderPaymentMethods(store.checkout.paymentMethodsResponse);
+    renderPosTerminals(store.checkout.paymentMethodsResponse);
+
+    const firstPaymentMethod = document.querySelector(
+        'input[type=radio][name=brandCode]',
+    );
+    firstPaymentMethod.checked = true;
+    helpers.displaySelectedMethod(firstPaymentMethod.value);
   });
 
   helpers.createShowConfirmationForm(
