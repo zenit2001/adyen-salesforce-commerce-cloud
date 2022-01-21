@@ -83,7 +83,7 @@ if(window.amazonCheckoutSessionId) {
         },
     };
 
-    const checkout = new AdyenCheckout(window.Configuration);
+    const checkout = await AdyenCheckout(window.Configuration);
     const amazonPayComponent = checkout
         .create('amazonpay', amazonConfig)
         .mount(amazonPayNode);

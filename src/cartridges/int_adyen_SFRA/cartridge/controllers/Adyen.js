@@ -20,11 +20,7 @@ server.post(
   adyen.paymentsDetails,
 );
 
-server.get(
-    'Sessions',
-    server.middleware.https,
-    adyen.callCreateSession,
-);
+server.get('Sessions', server.middleware.https, adyen.callCreateSession);
 
 /**
  * Redirect to Adyen after 3DS1 Authentication When adding a card to an account
@@ -42,15 +38,6 @@ server.post(
   'ShowConfirmationPaymentFromComponent',
   server.middleware.https,
   adyen.showConfirmationPaymentFromComponent,
-);
-
-/**
- * Make a request to Adyen to get payment methods based on countryCode
- */
-server.get(
-  'GetPaymentMethods',
-  server.middleware.https,
-  adyen.getPaymentMethods,
 );
 
 /**

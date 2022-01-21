@@ -1,5 +1,4 @@
 const showConfirmation = require('*/cartridge/controllers/middlewares/adyen/showConfirmation');
-const getPaymentMethods = require('*/cartridge/controllers/middlewares/adyen/getPaymentMethods');
 const paymentFromComponent = require('*/cartridge/controllers/middlewares/adyen/paymentFromComponent');
 const notify = require('*/cartridge/controllers/middlewares/adyen/notify');
 const showConfirmationPaymentFromComponent = require('*/cartridge/controllers/middlewares/adyen/showConfirmationPaymentFromComponent');
@@ -9,7 +8,6 @@ const callCreateSession = require('*/cartridge/controllers/middlewares/adyen/ses
 
 module.exports = {
   showConfirmation,
-  getPaymentMethods,
   paymentFromComponent,
   notify,
   showConfirmationPaymentFromComponent,

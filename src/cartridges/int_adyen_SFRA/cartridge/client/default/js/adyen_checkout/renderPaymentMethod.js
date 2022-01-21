@@ -91,15 +91,14 @@ function handlePayment(options) {
     : handleFallbackPayment(options);
 }
 
-function getListContents({ imagePath, isStored, paymentMethod, description }) {
+function getListContents({ imagePath, isStored, paymentMethod }) {
   const paymentMethodID = getPaymentMethodID(isStored, paymentMethod);
   const label = getLabel(isStored, paymentMethod);
-  const liContents = `
+  return `
     <input name="brandCode" type="radio" value="${paymentMethodID}" id="rb_${paymentMethodID}">
     <img class="paymentMethod_img" src="${imagePath}" ></img>
     <label id="lb_${paymentMethodID}" for="rb_${paymentMethodID}">${label}</label>
   `;
-  return description ? `${liContents}<p>${description}</p>` : liContents;
 }
 
 function getImagePath({ isStored, paymentMethod, path, isSchemeNotStored }) {
