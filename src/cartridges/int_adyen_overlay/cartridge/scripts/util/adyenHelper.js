@@ -558,7 +558,10 @@ var adyenHelperObj = {
         orderToken
     ).toString();
     stateData.applicationInfo = adyenHelperObj.getApplicationInfo(true);
-    stateData.enableRecurring = adyenHelperObj.getAdyenRecurringEnabled();
+    if(adyenHelperObj.getAdyenRecurringEnabled()) {
+      stateData.enableRecurring = true;
+      stateData.recurringProcessingModel = "CardOnFile";
+    }
     stateData.additionalData = {};
     return stateData;
   },
