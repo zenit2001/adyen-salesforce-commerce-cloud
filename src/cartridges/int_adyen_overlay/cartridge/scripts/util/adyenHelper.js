@@ -633,8 +633,8 @@ var adyenHelperObj = {
     let externalPlatformVersion = '';
     const applicationInfo = {};
     try {
-      // AdyenController can be coming either from int_adyen_controllers
-      // or int_adyen_SFRA, depending on the cartridge path
+      // AdyenController can be coming either from int_adyen_sg
+      // or int_adyen_sfra, depending on the cartridge path
       const AdyenController = require('*/cartridge/controllers/Adyen.js');
       externalPlatformVersion = AdyenController.getExternalPlatformVersion;
     } catch (e) {
