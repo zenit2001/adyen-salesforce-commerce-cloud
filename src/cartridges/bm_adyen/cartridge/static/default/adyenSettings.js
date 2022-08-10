@@ -11,18 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', () => {
     const formData = new FormData(form);
     const requestBody = {};
-    formData.entries().forEach((formPair) => {
-      const key = formPair[0];
-      const value = formPair[1];
-      requestBody[key] = value;
-    });
+    // formData.entries().forEach((formPair) => {
+    //   const key = formPair[0];
+    //   const value = formPair[1];
+    //   requestBody[key] = value;
+    // });
 
     fetch('AdyenSettings-Save', {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
       method: 'POST',
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify({
+        settings: [
+          { key: 'settinga', value: 'valuea' },
+          { key: 'settingb', value: 'valueb' },
+        ],
+      }),
     }).then(() => {
       // console.log(response);
     });
@@ -39,3 +44,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
   });
 });
+console.log('I HAVE BEEN ADDED AGAIN');
