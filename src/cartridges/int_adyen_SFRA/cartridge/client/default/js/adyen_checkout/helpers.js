@@ -32,14 +32,18 @@ function paymentFromComponent(data, component) {
       data: JSON.stringify(data),
       paymentMethod: document.querySelector('#adyenPaymentMethodName').value,
     },
+    async: false,
     success(response) {
       setOrderFormData(response);
 
       if (response.fullResponse?.action) {
         component.handleAction(response.fullResponse.action);
-      }
-      if (response.paymentError || response.error) {
+      } else if (response.paymentError || response.error) {
+        document.querySelector('#result').value = JSON.stringify(response);
         component.handleError();
+      } else {
+        document.querySelector('#result').value = JSON.stringify(response);
+        document.querySelector('#showConfirmationForm').submit();
       }
     },
   }).fail(() => {});
@@ -69,7 +73,9 @@ function displaySelectedMethod(type) {
   resetPaymentMethod();
 
   document.querySelector('button[value="submit-payment"]').disabled =
-    ['paypal', 'paywithgoogle', 'googlepay', 'amazonpay'].indexOf(type) > -1;
+    ['paypal', 'paywithgoogle', 'googlepay', 'amazonpay', 'applepay'].indexOf(
+      type,
+    ) > -1;
 
   document
     .querySelector(`#component_${type}`)

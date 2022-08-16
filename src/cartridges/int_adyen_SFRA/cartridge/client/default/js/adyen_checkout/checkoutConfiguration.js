@@ -150,6 +150,22 @@ function getAmazonpayConfig() {
   };
 }
 
+function getApplePayConfig() {
+  return {
+    showPayButton: true,
+    onSubmit: (state, component) => {
+      helpers.assignPaymentMethodValue();
+      helpers.paymentFromComponent(state.data, component);
+    },
+    onError: (error, component) => {
+      if (component) {
+        component.setStatus('ready');
+      }
+      document.querySelector('#showConfirmationForm').submit();
+    },
+  };
+}
+
 function setCheckoutConfiguration() {
   store.checkoutConfiguration.onChange = handleOnChange;
   store.checkoutConfiguration.onAdditionalDetails = handleOnAdditionalDetails;
@@ -168,6 +184,7 @@ function setCheckoutConfiguration() {
     googlepay: getGooglePayConfig(),
     paypal: getPaypalConfig(),
     amazonpay: getAmazonpayConfig(),
+    applepay: getApplePayConfig(),
   };
 }
 

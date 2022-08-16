@@ -96,6 +96,10 @@ const adyenConfigsObj = {
         return getCustomPreference('AdyenLevel23_CommodityCode');
     },
 
+    getAdyenApplePayTokenisationEnabled: function () {
+        return getCustomPreference('AdyenApplePayTokenisationEnabled');
+    },
+
     getAdyenSalePaymentMethods: function () {
         return getCustomPreference('AdyenSalePaymentMethods') ? getCustomPreference('AdyenSalePaymentMethods').toString().split(',') : '';
     },
