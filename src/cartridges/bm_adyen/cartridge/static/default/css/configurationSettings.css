@@ -1,0 +1,60 @@
+.form-title {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #00112C;
+}
+
+.links-header {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    color: #20304C;
+}
+
+.card-body .card-title {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #00112C;
+}
+
+.card-body .card-subtitle {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #69778C;
+}
+
+.form-group .form-text {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #20304C;
+}
+
+
+.list-group .navigation-item {
+    font-family: 'Fakt';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #394962;
+    }
+
+.row .sticky-top {
+    top: 10%
+}

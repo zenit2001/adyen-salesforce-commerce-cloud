@@ -410,7 +410,7 @@ var adyenHelperObj = {
       signature = adyenHelperObj.createSignature(paymentInstrument, order.getUUID(), reference);
     }
 
-    if(stateData. ?.storedPaymentMethodId) {
+    if(stateData?.storedPaymentMethodId) {
       stateData.recurringProcessingModel = 'CardOnFile';
       stateData.shopperInteraction = 'ContAuth';
     } else {
