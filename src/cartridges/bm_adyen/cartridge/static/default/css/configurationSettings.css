@@ -56,5 +56,6 @@
     }
 
 .row .sticky-top {
-    top: 10%
+    top: 10%;
+    z-index: 10;
 }
