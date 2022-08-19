@@ -25,6 +25,7 @@ function setApplePayData(result, order) {
     );
   }
   result.isApplePay = true;
+  return result;
 }
 
 /**
