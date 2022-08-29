@@ -11,6 +11,7 @@ const constants = require('*/cartridge/adyenConstants/constants');
 const collections = require('*/cartridge/scripts/util/collections');
 
 function setApplePayData(result, order) {
+  const applePayResult = {};
   if (result.fullResponse) {
     const adyenPaymentInstrument = order.getPaymentInstruments(
       constants.METHOD_ADYEN_COMPONENT,
@@ -20,12 +21,12 @@ function setApplePayData(result, order) {
         result.fullResponse,
       );
     });
-    result.fullResponse = AdyenHelper.createAdyenCheckoutResponse(
+    applePayResult.fullResponse = AdyenHelper.createAdyenCheckoutResponse(
       result.fullResponse,
     );
+    applePayResult.isApplePay = true;
   }
-  result.isApplePay = true;
-  return result;
+  return applePayResult;
 }
 
 /**
@@ -75,10 +76,6 @@ function paymentFromComponent(req, res, next) {
     });
   });
 
-  if (AdyenHelper.isApplePay(reqDataObj.paymentMethod.type)) {
-    result = setApplePayData(result, order);
-  }
-
   if (result.resultCode === constants.RESULTCODES.REFUSED) {
     Logger.getLogger('Adyen').error(
       `Payment refused for order ${order.orderNo}`,
@@ -92,6 +89,10 @@ function paymentFromComponent(req, res, next) {
         OrderMgr.failOrder(order, true);
       });
     }
+  }
+
+  if (AdyenHelper.isApplePay(reqDataObj.paymentMethod.type)) {
+    result = setApplePayData(result, order);
   }
 
   result.orderNo = order.orderNo;

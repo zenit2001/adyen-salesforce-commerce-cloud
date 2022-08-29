@@ -655,7 +655,7 @@ var adyenHelperObj = {
   },
 
   isApplePay(paymentMethod) {
-    return !!paymentMethod?.indexOf('applepay') > -1;
+    return !!paymentMethod?.indexOf(constants.PAYMENTMETHODS.APPLEPAY) > -1;
   },
 
   // validates all fields in a state data object. Filters out all invalid fields
